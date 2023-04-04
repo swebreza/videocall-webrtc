@@ -1,0 +1,24 @@
+About Hackathon:
+This Rajasthan IT Day Department of Information Technology & Communications (DOIT&C) & iStart bring to you 2 Mega Hack-A-Thons in association with PW Skills (iNeuron)With a chance to win work orders of up to 25 Lakhs while attending Job fair and start up expo. Travel & Accommodation was provided to shortlisted candidates for the Offline Hackathon (AC 3 Tier). Food and accommodation was provided at the venue
+
+Idea Generation:
+My idea was to create an webapp that would Store the data in decenterlized storage system using IPFS. I spent a significant amount of time researching about the decenterlized stotage and webapp development. I came up with a detailed plan of how the app would work, including its design and functionality.
+
+Project Development:
+I used Reactjs to build webapp and integrated it with a backend server built using Node.js. We utilized MongoBD to store the user data and transaction history. I divided the tasks into small pices  to complete the project. My app had a clean and intuitive design that allowed users to Uploade an design store them on IPFS.
+
+Challenges and Solutions:
+I faced several challenges throughout the hackathon, including time management, technical difficulties, and working on the project as solo. However, I overcame these challenges by dividing the time and take small small breaks in between , and asking for help from mentors when needed.
+
+Lessons Learned:
+I learned a lot about the aproach to start with a project, time management, and webapp development during the hackathon. I also gained insights into verious other related solution avaliable on the internet. I believe that I have developed valuable skills that will help me in future hackathons.
+
+Results and Future Plans:
+My webapp received positive feedback from the judges, thought I was not able to win, the mentores prased about my work and asked me stay connected for the job opening in the comming future. I plan to continue developing our webapp and also launch it on the app store. I also plan to participate in more hackathons and continue to work on related projects.
+
+Conclusion:
+The Rajasthan IT Day Department of Information Technology & Communications (DOIT&C) & iStart Hackathon was an enriching experience that allowed us to network with new people, develop new skills, and create an innovative solution. I encourage anyone interested in app development or webapp and depelopin an fullstack sollution to participate in hackathons and continue to learn and grow.
+
+
+
+ 	
