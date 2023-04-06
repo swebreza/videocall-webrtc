@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './App.css'
+import SignIn from './components/auth/signin'
+import SignUp from './components/auth/signup'
+// import { TextField, Container } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/home'
+import JoinMeeting from './components/pages/joinMeeting'
+import Meeting from './components/pages/meeting'
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Routes>
+        <Route path='/' Component={Home} />
+        <Route path='/signin' Component={SignIn} />
+        <Route path='/signup' Component={SignUp} />
+        <Route path='/join' Component={JoinMeeting} />
+        <Route path='/meeting' Component={Meeting} />
+      </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
