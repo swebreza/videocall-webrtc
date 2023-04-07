@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './components/home'
 import JoinMeeting from './components/pages/joinMeeting'
 import Meeting from './components/pages/meeting'
+
 function App() {
   return (
     <div className='App'>
@@ -14,7 +15,7 @@ function App() {
         <Route path='/signin' Component={SignIn} />
         <Route path='/signup' Component={SignUp} />
         <Route path='/join' Component={JoinMeeting} />
-        <Route path='/meeting' Component={Meeting} />
+        <Route path='/meeting/:roomId' Component={Meeting} />
       </Routes>
     </div>
   )

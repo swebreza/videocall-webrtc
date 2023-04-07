@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const { Server } = require('socket.io')
 
 // My Routes
 const authRoutes = require('./routes/auth')
@@ -22,6 +23,25 @@ mongoose
     console.log('DB CONNECTED!!!')
   })
 // .catch(console.log('***DATABASE CONNECTION ERROR!! !***'))
+
+const io = new Server(8001, {
+  cors: true,
+})
+const emailToSocketMap = new Map()
+const socketIdToEmailMap = new Map()
+
+// Socket IO
+io.on('connection', (socket) => {
+  console.log('socket connected', socket.id)
+  socket.on('room:join', (data) => {
+    const { email, room } = data
+    emailToSocketMap.set(email, socket.id)
+    socketIdToEmailMap.set(socket.id, email)
+    io.to(room).emit('user:joined', { email, id: socket.id })
+    socket.join(room)
+    io.to(socket.id).emit('room:join', data)
+  })
+})
 
 //Port Number
 const port = process.env.PORT || 8000
@@ -58,7 +78,7 @@ app.get('/signout', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on Port ${port}`)
 })
-
+// io.listen(8001)
 // Get
 // Post
 // put
