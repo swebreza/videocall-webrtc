@@ -68,6 +68,30 @@ const Meeting = () => {
     [sendStreams]
   )
 
+  const handleNegoNeeded = useCallback(async () => {
+    const offer = await peer.getOffer()
+    socket.emit('peer:nego:needed', { offer, to: remoteSocketId })
+  }, [remoteSocketId, socket])
+
+  const handleNegoNeedIncoming = useCallback(
+    async ({ from, offer }) => {
+      const ans = await peer.getAnswer(offer)
+      socket.emit('peer:nego:done', { to: from, ans })
+    },
+    [socket]
+  )
+
+  const handleCallFinal = useCallback(async ({ from, ans }) => {
+    await peer.peer.setLocalDescription(ans)
+  }, [])
+
+  useEffect(() => {
+    peer.peer.addEventListener('negotiationneeded', handleNegoNeeded)
+    return () => {
+      peer.peer.removeEventListener('negotiationneeded', handleNegoNeeded)
+    }
+  }, [handleNegoNeeded])
+
   useEffect(() => {
     peer.peer.addEventListener('track', async (ev) => {
       const remoteStream = ev.streams
@@ -80,13 +104,25 @@ const Meeting = () => {
     socket.on('user:joined', handleUserJoined)
     socket.on('incoming:call', handleIncomingCall)
     socket.on('call:accepted', handleCallAccepted)
+    socket.on('peer:nego:needed', handleNegoNeedIncoming)
+    socket.on('peer:nego:done', handleCallAccepted)
+    socket.on('peer:nego:final', handleCallFinal)
 
     return () => {
       socket.off('user:joined', handleUserJoined)
       socket.off('incoming:call', handleUserJoined)
       socket.off('call:accepted', handleCallAccepted)
+      socket.off('peer:nego:done', handleCallAccepted)
+      socket.off('peer:nego:final', handleCallFinal)
     }
-  }, [socket, handleUserJoined, handleIncomingCall, handleCallAccepted])
+  }, [
+    socket,
+    handleUserJoined,
+    handleIncomingCall,
+    handleCallAccepted,
+    handleNegoNeedIncoming,
+    handleCallFinal,
+  ])
 
   return (
     <div>
@@ -95,6 +131,11 @@ const Meeting = () => {
         <div className=' text-3xl'>
           {remoteSocketId ? 'Connected!' : 'No oNe In The room'}
         </div>
+        {myStream && (
+          <Button variant='outlined' onClick={handleCallUser}>
+            send Stream
+          </Button>
+        )}
         {remoteSocketId && (
           <Button variant='outlined' onClick={handleCallUser}>
             Call
@@ -113,15 +154,22 @@ const Meeting = () => {
             />
           </div>
         )}
-        <h1>My Remote Stream</h1>
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
         {remoteStream && (
-          <ReactPlayer
-            url={remoteStream}
-            height='200px'
-            width='600px'
-            playing={true}
-            muted={true}
-          />
+          <div className='p-10 container rounded-lg shadow-lg '>
+            <h1>My Remote Stream</h1>
+            <ReactPlayer
+              url={remoteStream}
+              height='200px'
+              width='600px'
+              playing={true}
+              muted={true}
+            />
+          </div>
         )}
       </center>
     </div>
