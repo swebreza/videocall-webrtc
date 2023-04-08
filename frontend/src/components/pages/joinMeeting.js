@@ -4,16 +4,17 @@ import Button from '@material-ui/core/Button'
 import { useSocket } from '../providers/socket'
 import { useNavigate } from 'react-router-dom'
 const JoinMeeting = () => {
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [room, setRoom] = useState('')
 
   const socket = useSocket()
+  const navigate = useNavigate()
+
   console.log(socket)
   const handleSubmitForm = useCallback(
     (e) => {
       e.preventDefault()
-      socket.emit('room:join', { room: room, email: email })
+      socket.emit('room:join', { room, email })
     },
     [email, room, socket]
   )
