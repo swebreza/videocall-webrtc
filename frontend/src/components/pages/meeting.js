@@ -3,6 +3,7 @@ import { useSocket } from '../providers/socket'
 import { Button } from '@material-ui/core'
 import ReactPlayer from 'react-player'
 import peer from '../services/peer'
+import { Link } from 'react-router-dom'
 
 const Meeting = () => {
   const socket = useSocket()
@@ -169,6 +170,13 @@ const Meeting = () => {
               playing={true}
               muted={true}
             />
+            <br />
+            <br />
+            <Link to='/' className='text-red-500'>
+              <Button variant='outlined' color='error' onClick={handleCallUser}>
+                End Call
+              </Button>
+            </Link>
           </div>
         )}
       </center>
