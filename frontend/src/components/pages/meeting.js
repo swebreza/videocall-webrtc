@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core'
 import ReactPlayer from 'react-player'
 import peer from '../services/peer'
 import { Link } from 'react-router-dom'
+import Nav from '../inc/nav'
 
 const Meeting = () => {
   const socket = useSocket()
@@ -127,6 +128,7 @@ const Meeting = () => {
 
   return (
     <div>
+      <Nav />
       <center className='p-10'>
         <h1 className='p-10 font-bold'>Meeting</h1>
         <div className=' text-3xl'>
